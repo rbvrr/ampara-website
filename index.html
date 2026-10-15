@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A.M.P.A.R.A — MPES 2026.1 - Grupo 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* =========================================
+       SISTEMA DE DESIGN (Inspirado em landing-saude-mental.html)
+    ========================================= */
+        :root {
+            --verde-salvia: #A7C5BA;
+            --verde-claro: #DCEBE4;
+            --azul-calmo: #B7CDE1;
+            --azul-profundo: #48637A;
+            --areia: #F2E8DA;
+            --lilas: #DCCFE1;
+            --carvao: #2F3338;
+            --branco: #FFFFFF;
+            --fundo: #FAFBF9;
+            --muted: #6B7280;
+            --radius: 14px;
+            --shadow: 0 8px 30px rgba(47, 51, 56, .08);
+            --shadow-sm: 0 2px 10px rgba(47, 51, 56, .06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            background: var(--fundo);
+            color: var(--carvao);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--azul-profundo);
+            text-decoration: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            color: var(--carvao);
+            line-height: 1.2;
+        }
+
+        .sm-app {
+            position: relative;
+            overflow: visible;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            background: var(--branco);
+            border-bottom: 1px solid #EEF2EE;
+            box-shadow: var(--shadow-sm);
+            overflow: visible;
+        }
+
+        .nav-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--azul-profundo);
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--verde-salvia), var(--azul-calmo));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a,
+        .nav-links button {
+            font: inherit;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--carvao);
+            font-size: 14.5px;
+            font-weight: 500;
+            transition: .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover,
+        .nav-links button:hover,
+        .nav-links a.active,
+        .nav-links button.active {
+            background: var(--verde-claro);
+            color: var(--azul-profundo);
+        }
+
+        /* Dropdown */
+        .has-drop {
+            position: relative;
+        }
+
+        .drop-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(47, 51, 56, .15);
+            min-width: 230px;
+            padding: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px);
+            transition: .18s ease;
+            z-index: 10000;
+        }
+
+        .has-drop:hover .drop-menu,
+        .has-drop:focus-within .drop-menu,
+        .drop-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .drop-menu a {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--carvao);
+            font-size: 14px;
+            border-bottom: none !important;
+        }
+
+        .drop-menu a:hover {
+            background: var(--verde-claro);
+            color: var(--azul-profundo);
+        }
+
+        .caret {
+            font-size: 10px;
+            opacity: .6;
+        }
+
+        .nav-cta {
+            background: var(--azul-profundo) !important;
+            color: #fff !important;
+            padding: 10px 18px !important;
+            border-radius: 10px !important;
+        }
+
+        .nav-cta:hover {
+            background: #3a526a !important;
+        }
+
+        .burger {
+            display: none;
+            background: none;
+            border: 0;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--carvao);
+        }
+
+        /* Conteúdo Principal */
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .page {
+            display: none;
+            animation: fade .35s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 60px;
+            align-items: center;
+            background: linear-gradient(135deg, var(--verde-claro) 0%, #fff 60%);
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -80px;
+            top: -80px;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, var(--lilas), transparent 70%);
+            opacity: .6;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            background: var(--areia);
+            color: var(--azul-profundo);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.2vw, 3.4rem);
+            margin-bottom: 18px;
+            color: var(--azul-profundo);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-bottom: 28px;
+            max-width: 520px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 26px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 0;
+            transition: .2s;
+        }
+
+        .btn-primary {
+            background: var(--azul-profundo);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #3a526a;
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--azul-profundo);
+            border: 1.5px solid var(--azul-profundo);
+            margin-left: 10px;
+        }
+
+        .btn-ghost:hover {
+            background: var(--azul-profundo);
+            color: #fff;
+        }
+
+        .hero-visual {
+            aspect-ratio: 1;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 30% 30%, var(--verde-salvia), transparent 55%),
+                radial-gradient(circle at 70% 60%, var(--azul-calmo), transparent 55%),
+                radial-gradient(circle at 50% 90%, var(--lilas), transparent 55%),
+                var(--verde-claro);
+            position: relative;
+            display: grid;
+            place-items: center;
+            box-shadow: inset 0 0 60px rgba(255, 255, 255, .4);
+        }
+
+        .hero-card {
+            background: #fff;
+            padding: 24px 28px;
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(47, 51, 56, .12);
+            max-width: 85%;
+            text-align: center;
+        }
+
+        .hero-card .quote {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            color: var(--carvao);
+            font-style: italic;
+        }
+
+        .hero-card .quote b {
+            color: var(--azul-profundo);
+        }
+
+        .hero-card .mark {
+            font-family: 'Fraunces', serif;
+            color: var(--verde-salvia);
+            font-size: 2.4rem;
+            line-height: 0;
+            display: block;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        /* Section Header */
+        .section-head {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-head.left {
+            text-align: left;
+        }
+
+        .section-head .eyebrow {
+            margin-bottom: 14px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--azul-profundo);
+            margin-bottom: 12px;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .section-head.left p {
+            margin: 0;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #EEF2EE;
+            transition: .25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .card .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            font-size: 22px;
+        }
+
+        .ic-verde {
+            background: var(--verde-claro);
+            color: var(--azul-profundo);
+        }
+
+        .ic-azul {
+            background: var(--azul-calmo);
+            color: var(--azul-profundo);
+        }
+
+        .ic-lilas {
+            background: var(--lilas);
+            color: #6b5b8a;
+        }
+
+        .ic-areia {
+            background: var(--areia);
+            color: #8a6b3a;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        /* Chips / Pílulas */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .chip {
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Fraunces', serif;
+        }
+
+        .chip:nth-child(5n+1) {
+            background: var(--verde-claro);
+            color: #3d5a4a;
+        }
+
+        .chip:nth-child(5n+2) {
+            background: var(--azul-calmo);
+            color: var(--azul-profundo);
+        }
+
+        .chip:nth-child(5n+3) {
+            background: var(--verde-salvia);
+            color: #3d5a4a;
+        }
+
+        .chip:nth-child(5n+4) {
+            background: var(--lilas);
+            color: #6b5b8a;
+        }
+
+        .chip:nth-child(5n+5) {
+            background: var(--areia);
+            color: #8a6b3a;
+        }
+
+        /* Página da empresa */
+        .company-intro {
+            max-width: 880px;
+            margin: 0 auto 56px;
+            padding: 44px;
+            border-radius: 24px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--verde-claro), #fff 65%);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .company-intro h2 {
+            color: var(--azul-profundo);
+            font-size: clamp(2.1rem, 4vw, 3.2rem);
+            margin-bottom: 14px;
+        }
+
+        .company-intro p {
+            color: var(--muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .golden-circle {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 18px;
+        }
+
+        .circle-layer {
+            padding: 28px 32px;
+            border-radius: 18px;
+            background: #fff;
+            border-left: 6px solid var(--verde-salvia);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .circle-layer.how {
+            border-left-color: var(--azul-calmo);
+        }
+
+        .circle-layer.what {
+            border-left-color: var(--lilas);
+        }
+
+        .circle-label {
+            display: inline-block;
+            color: var(--azul-profundo);
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            margin-bottom: 8px;
+        }
+
+        .circle-layer p,
+        .circle-layer li {
+            color: var(--muted);
+        }
+
+        .circle-layer ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .circle-layer li + li {
+            margin-top: 8px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px dashed var(--verde-salvia);
+            max-width: 820px;
+            margin: 40px auto;
+        }
+
+        .tl-item {
+            position: relative;
+            padding: 14px 0 30px 26px;
+        }
+
+        .tl-item::before {
+            content: "";
+            position: absolute;
+            left: -39px;
+            top: 18px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--verde-salvia);
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px var(--verde-salvia);
+        }
+
+        .tl-item.done::before {
+            background: var(--azul-profundo);
+            box-shadow: 0 0 0 2px var(--azul-profundo);
+        }
+
+        .tl-item.current::before {
+            background: var(--lilas);
+            box-shadow: 0 0 0 2px #b8a4c4;
+        }
+
+        .tl-date {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--azul-profundo);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .tl-item h4 {
+            margin: 6px 0;
+            font-size: 1.2rem;
+        }
+
+        .tl-item p {
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .status-concluido {
+            background: var(--verde-claro);
+            color: #3d5a4a;
+        }
+
+        .status-andamento {
+            background: var(--lilas);
+            color: #6b5b8a;
+        }
+
+        .status-iniciar {
+            background: var(--areia);
+            color: #8a6b3a;
+        }
+
+        /* Equipe */
+        .team {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .member {
+            background: #fff;
+            padding: 28px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #EEF2EE;
+            transition: .25s;
+        }
+
+        .member:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .member-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            border: 3px solid var(--verde-claro);
+            display: block;
+        }
+
+        .member h4 {
+            font-size: 1.15rem;
+            margin-bottom: 4px;
+        }
+
+        .member .role {
+            font-size: .85rem;
+            color: var(--azul-profundo);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 12px;
+        }
+
+        .contact-info {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .team-group {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .team-group-img-wrapper {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid #EEF2EE;
+        }
+
+        .team-group-img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+        }
+
+        /* Repositórios */
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .repo-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid #EEF2EE;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: .25s;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .repo-icon {
+            flex: 0 0 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: var(--verde-claro);
+            color: var(--azul-profundo);
+            font-size: 22px;
+        }
+
+        .repo-card h4 {
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+        }
+
+        .repo-card p {
+            color: var(--muted);
+            font-size: .92rem;
+            margin-bottom: 14px;
+        }
+
+        .repo-link {
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--azul-profundo);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .repo-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Lista Estilizada */
+        .styled-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .styled-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 15px;
+            color: var(--carvao);
+        }
+
+        .styled-list li::before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: var(--verde-salvia);
+            font-size: 14px;
+        }
+
+        .styled-list strong {
+            color: var(--azul-profundo);
+            font-family: 'Fraunces', serif;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 100px;
+            padding: 40px 24px;
+            text-align: center;
+            border-top: 1px solid #EEF2EE;
+            color: var(--muted);
+            font-size: .88rem;
+        }
+
+        /* Responsivo */
+        @media(max-width: 1024px) {
+
+            .grid-3,
+            .team,
+            .repo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                gap: 30px;
+                padding: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media(max-width: 960px) and (min-width: 741px) {
+            .nav-inner {
+                padding: 10px 16px;
+            }
+
+            .brand {
+                font-size: 18px;
+                gap: 8px;
+            }
+
+            .brand-logo {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .nav-links {
+                gap: 2px;
+            }
+
+            .nav-links a,
+            .nav-links button {
+                padding: 8px 10px;
+                font-size: 13.5px;
+            }
+
+            .nav-cta {
+                padding: 8px 14px !important;
+            }
+        }
+
+        @media(max-width: 740px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+                padding: 14px;
+                box-shadow: var(--shadow);
+                display: none;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links a,
+            .nav-links button {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .drop-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                padding-left: 14px;
+            }
+
+            .drop-menu.open {
+                display: block;
+            }
+
+            .has-drop:hover .drop-menu {
+                display: none;
+            }
+
+            .has-drop:hover .drop-menu.open {
+                display: block;
+            }
+
+            .burger {
+                display: block;
+            }
+        }
+
+        @media(max-width: 880px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero p {
+                margin: 0 auto 28px;
+            }
+
+            .hero-visual {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .grid-3,
+            .grid-2,
+            .team,
+            .repo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                padding: 40px 18px;
+            }
+
+            .section-head h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn-ghost {
+                margin-left: 0;
+                margin-top: 12px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .repo-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .repo-icon {
+                margin: 0 auto 15px;
+            }
+        }
+
+        /* =========================================
+       PLANILHA CRONOGRAMA & INTEGRACAO
+    ========================================= */
+        .sheet-container {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid #EEF2EE;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin-top: 30px;
+        }
+
+        .sheet-header {
+            padding: 18px 24px;
+            background: #fafbfa;
+            border-bottom: 1px solid #EEF2EE;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .sheet-title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sheet-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .sheet-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--verde-claro);
+            color: var(--azul-profundo);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sheet-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-sheet-action {
+            background: #fff;
+            border: 1.5px solid #e5e7eb;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--carvao);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-sheet-action:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            color: var(--azul-profundo);
+            transform: translateY(-1px);
+        }
+
+        .btn-sheet-action.primary-action {
+            background: var(--azul-profundo);
+            color: #fff;
+            border-color: var(--azul-profundo);
+        }
+
+        .btn-sheet-action.primary-action:hover {
+            background: #3a526a;
+            border-color: #3a526a;
+            color: #fff;
+        }
+
+        .sheet-iframe-wrapper {
+            position: relative;
+            width: 100%;
+            height: 650px;
+            background: #fff;
+        }
+
+        .sheet-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Soluções Existentes Custom Cards */
+        .solution-card {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 120px;
+            text-align: center;
+            border: 1px solid #EEF2EE;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fff;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--verde-salvia);
+            box-shadow: 0 12px 30px rgba(72, 99, 122, 0.12);
+            background: linear-gradient(135deg, #ffffff 0%, #f4f7f5 100%);
+        }
+
+        .solution-card h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            color: var(--azul-profundo);
+            margin-bottom: 8px;
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .solution-card:hover h4 {
+            color: var(--carvao);
+        }
+
+        .more-info-badge {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s;
+            opacity: 0.8;
+        }
+
+        .solution-card:hover .more-info-badge {
+            color: var(--azul-profundo);
+            transform: translateX(4px);
+            opacity: 1;
+        }
+
+        /* Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(47, 51, 56, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--branco);
+            width: 90%;
+            max-width: 520px;
+            border-radius: 20px;
+            box-shadow: 0 24px 60px rgba(47, 51, 56, 0.16);
+            padding: 40px;
+            position: relative;
+            transform: scale(0.92) translateY(15px);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid #EEF2EE;
+        }
+
+        .modal-overlay.open .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: #f3f4f6;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--carvao);
+            transition: all 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--verde-claro);
+            color: var(--azul-profundo);
+            transform: rotate(90deg);
+        }
+
+        .modal-tag {
+            display: inline-block;
+            background: var(--verde-claro);
+            color: var(--azul-profundo);
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            color: var(--azul-profundo);
+            margin-bottom: 18px;
+        }
+
+        .modal-description {
+            color: #4b5563;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            margin-bottom: 32px;
+        }
+
+        .modal-action-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .modal-action-btn {
+            width: 100%;
+            justify-content: center;
+            font-weight: 600;
+            background: var(--azul-profundo);
+            color: #fff;
+            padding: 14px 26px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-action-btn:hover {
+            background: #3a526a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(72, 99, 122, 0.2);
+        }
+
+        .company-okr-cta {
+            display: flex;
+            justify-content: center;
+            margin-top: 54px;
+        }
+
+        .okr-modal-content {
+            width: min(1120px, 94vw);
+            max-width: none;
+            max-height: 88vh;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .okr-modal-content .modal-title {
+            padding-right: 44px;
+        }
+
+        .okr-objectives {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin: 28px 0 42px;
+        }
+
+        .okr-objective {
+            padding: 22px;
+            border-radius: 14px;
+            background: var(--fundo);
+            border: 1px solid #e6ece8;
+        }
+
+        .okr-objective h4 {
+            color: var(--azul-profundo);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .okr-objective p {
+            color: var(--muted);
+            font-size: .92rem;
+            margin-bottom: 12px;
+        }
+
+        .okr-objective ul {
+            padding-left: 18px;
+            color: var(--muted);
+            font-size: .88rem;
+        }
+
+        .okr-objective li + li {
+            margin-top: 8px;
+        }
+
+        .okr-table-wrap {
+            overflow-x: auto;
+            border: 1px solid #d8e0dc;
+            border-radius: 12px;
+        }
+
+        .okr-table {
+            width: 100%;
+            min-width: 860px;
+            border-collapse: collapse;
+            font-size: .8rem;
+        }
+
+        .okr-table th,
+        .okr-table td {
+            padding: 10px;
+            vertical-align: top;
+            border: 1px solid #d8e0dc;
+            text-align: left;
+        }
+
+        .okr-table th {
+            background: var(--azul-profundo);
+            color: #fff;
+            font-family: 'Fraunces', serif;
+        }
+
+        .okr-table td {
+            color: var(--carvao);
+        }
+
+        @media(max-width: 700px) {
+            .okr-modal-content {
+                padding: 28px 20px;
+            }
+
+            .okr-objectives {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(min-width: 480px) {
+            .modal-action-btn {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sm-app">
+
+        <!-- NAVBAR -->
+        <nav class="navbar">
+            <div class="nav-inner">
+                <a href="#inicio" class="brand" data-page="inicio">
+                    <div class="brand-logo">S</div>
+                    <span>A.M.P.A.R.A</span>
+                </a>
+                <button class="burger" id="burgerBtn" type="button" aria-label="Abrir menu">☰</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#inicio" data-page="inicio" class="active">Início</a></li>
+                    <li class="has-drop">
+                        <button type="button" data-drop-target="dropSobre">Sobre <span class="caret">▾</span></button>
+                        <div class="drop-menu" id="dropSobre">
+                            <a href="#sobre" data-page="sobre">O Projeto</a>
+                            <a href="#empresa" data-page="empresa">A Empresa</a>
+                            <a href="#ideacao" data-page="ideacao">Ideação</a>
+                        </div>
+                    </li>
+                    <li class="has-drop">
+                        <button type="button" data-drop-target="dropProc">Processos <span class="caret">▾</span></button>
+                        <div class="drop-menu" id="dropProc">
+                            <a href="#ciclo" data-page="ciclo">Ciclo de Vida</a>
+                            <a href="#cronograma" data-page="cronograma">Linha do Tempo</a>
+                        </div>
+                    </li>
+                    <li><a href="#planilha-cronograma" data-page="planilha-cronograma">Cronograma</a></li>
+                    <li><a href="#equipe" data-page="equipe">Equipe</a></li>
+                    <li><a href="#repositorio" data-page="repositorio">Repositórios</a></li>
+                    <li><a href="#sobre" class="nav-cta" data-page="sobre">Conhecer</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+
+            <!-- INÍCIO -->
+            <section class="page active" id="inicio">
+                <div class="hero">
+                    <div>
+                        <span class="eyebrow">Mestrado Profissional · Saúde Mental Digital</span>
+                        <h1>Cuidar da mente é construir caminhos para o amanhã.</h1>
+                        <p>Aplicativo desenvolvido como produto de Mestrado Profissional, unindo rigor metodológico,
+                            tecnologia e
+                            design centrado no usuário para promover o bem-estar emocional.</p>
+                        <button class="btn btn-primary" type="button" data-page="sobre">Conhecer o projeto →</button>
+                        <button class="btn btn-ghost" type="button" data-page="repositorio">Ver Repositórios</button>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hero-card">
+                            <span class="mark">“</span>
+                            <p class="quote">Cuidar da <b>mente</b> é construir caminhos para o hoje e para o
+                                <b>amanhã</b>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="icon ic-verde">♡</div>
+                        <h3>Cuidado</h3>
+                        <p>Transmitimos acolhimento e inovação através de soluções baseadas em evidências científicas.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-azul">🛡</div>
+                        <h3>Zelo</h3>
+                        <p>Privacidade, segurança e credibilidade em cada etapa do desenvolvimento técnico-acadêmico.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-lilas">❆</div>
+                        <h3>Calma</h3>
+                        <p>Interfaces pensadas para serem leves, acessíveis e focadas na tranquilidade e autonomia do
+                            usuário.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- A EMPRESA -->
+            <section class="page" id="empresa">
+                <div class="company-intro">
+                    <span class="eyebrow">Sobre · A Empresa</span>
+                    <h2>AMPARA</h2>
+                    <p>Somos uma empresa comprometida em fortalecer o cuidado emocional e as redes de apoio no contexto educacional.</p>
+                </div>
+
+                <div class="grid grid-2" style="margin-bottom: 70px;">
+                    <article class="card">
+                        <div class="icon ic-verde">✦</div>
+                        <h3>Missão</h3>
+                        <p>Melhorar a qualidade de vida e o clima escolar; e expandir a rede de apoio das pessoas envolvidas no âmbito educacional.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon ic-azul">◌</div>
+                        <h3>Visão</h3>
+                        <p>Liderar o mindset disruptivo do uso de tecnologias voltadas para a saúde emocional no Brasil até 2028.</p>
+                    </article>
+                </div>
+
+                <div class="section-head">
+                    <span class="eyebrow">Nossa essência</span>
+                    <h2>Valores que orientam a AMPARA</h2>
+                </div>
+                <div class="chips" style="margin: -20px auto 80px; max-width: 760px;">
+                    <span class="chip">Ética e respeito</span>
+                    <span class="chip">Saúde e bem-estar no clima escolar</span>
+                    <span class="chip">Diversidade e inclusão</span>
+                </div>
+
+                <div class="section-head">
+                    <span class="eyebrow">Golden Circle</span>
+                    <h2>Por que, como e o que fazemos</h2>
+                    <p>Nosso propósito transforma tecnologia em apoio prático para toda a comunidade escolar.</p>
+                </div>
+                <div class="golden-circle">
+                    <article class="circle-layer">
+                        <span class="circle-label">WHY</span>
+                        <p><strong>Nossa missão:</strong> melhorar a qualidade de vida e o clima escolar, expandindo a rede de apoio das pessoas envolvidas no âmbito educacional.</p>
+                    </article>
+                    <article class="circle-layer how">
+                        <span class="circle-label">HOW</span>
+                        <ul>
+                            <li>Propor soluções tecnológicas acessíveis para escolas sucateadas pelo governo.</li>
+                            <li>Democratizar o conhecimento sobre saúde emocional por meio da agregação e centralização de conteúdos educativos sobre o tema.</li>
+                            <li>Diluir a responsabilidade pela saúde emocional dos estudantes, hoje intrínseca aos profissionais da esfera escolar, provendo ferramentas que os suportem e apoiem no dia a dia.</li>
+                        </ul>
+                    </article>
+                    <article class="circle-layer what">
+                        <span class="circle-label">WHAT</span>
+                        <ul>
+                            <li><strong>Redução da Carga Clínica:</strong> direcionar casos urgentes para teleatendimento e telemedicina.</li>
+                            <li><strong>Inteligência de Dados:</strong> oferecer alertas automáticos baseados em triagens periódicas para atenção imediata.</li>
+                            <li><strong>Suporte no “Aqui e Agora”:</strong> disponibilizar instruções claras sobre o que fazer durante uma crise aguda.</li>
+                            <li><strong>Integração:</strong> conectar escola, família e rede de saúde, incluindo SUS e CAPS.</li>
+                        </ul>
+                    </article>
+                </div>
+                <div class="company-okr-cta">
+                    <button class="btn btn-primary" type="button" data-action="open-okr">Ver OKRs e indicadores →</button>
+                </div>
+            </section>
+
+            <!-- SOBRE -->
+            <section class="page" id="sobre">
+                <div class="section-head">
+                    <span class="eyebrow">Sobre o projeto</span>
+                    <h2>Apoio, Monitoramento Psicológico e Acolhimento Responsável ao Aluno</h2>
+                    <p>O aplicativo "A.M.P.A.R.A" surge da necessidade de democratizar ferramentas de autocuidado
+                        emocional
+                        no ambiente
+                        universitário, unindo Saúde Coletiva e Engenharia de Software.</p>
+                </div>
+
+                <div class="grid grid-2" style="margin-bottom: 40px;">
+                    <div class="card">
+                        <div class="icon ic-verde">◐</div>
+                        <h3>Contexto Acadêmico</h3>
+                        <p>Produto técnico-tecnológico desenvolvido no âmbito de um Mestrado Profissional, baseado em
+                            revisão
+                            sistemática e Design Thinking Research para validação científica.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-azul">⚖</div>
+                        <h3>Desafio / Problema</h3>
+                        <p>Atender a necessidade latente de suporte aos docentes da educação, especificamente do ensino
+                            médio, que
+                            padecem diariamente com a sobrecarga e a responsabilidade de lidar com ocorrências advindas
+                            da saúde
+                            emocional fragilizada dos estudantes.</p>
+                    </div>
+                </div>
+
+                <!-- MOTIVAÇÃO E DADOS -->
+                <div class="section-head" style="margin-top: 60px;">
+                    <span class="eyebrow">Motivação & Propósito</span>
+                    <h2>A Crise Silenciosa nas Escolas</h2>
+                </div>
+                <div class="card"
+                    style="max-width: 960px; margin: 0 auto 80px; border-left: 6px solid var(--azul-profundo);">
+                    <p>Atualmente, as instituições de ensino médio enfrentam uma crise de saúde mental sem precedentes,
+                        evidenciada pelos dados da <strong>Pesquisa PeNSE 2024/IBGE</strong>. A pesquisa revela que
+                        <strong>28,9%
+                            dos escolares</strong> sentem-se tristes na maioria das vezes ou sempre — um índice que sobe
+                        para
+                        <strong>41% entre o público feminino</strong>.
+                    </p>
+
+                    <p style="margin-top: 15px;">Com a implementação do "Novo Ensino Médio", a carga horária anual
+                        aumentou em
+                        25%. Nesse cenário, os docentes padecem diariamente com a sobrecarga de lidar com ocorrências
+                        emocionais
+                        fragilizadas dos estudantes, sem possuir ferramentas adequadas para intervenção ou acolhimento.
+                    </p>
+
+                    <p style="margin-top: 15px;">O problema central é a <strong>lacuna de protocolos de
+                            prevenção</strong>. A
+                        ausência de monitoramento impede a identificação de quadros de sofrimento, resultando em
+                        internações e
+                        episódios críticos. </p>
+
+                    <div style="margin-top: 30px; padding: 25px; background: var(--verde-claro); border-radius: 12px;">
+                        <h4 style="color: var(--azul-profundo); margin-bottom: 10px;">Nossa Proposta de Valor</h4>
+                        <p style="color: var(--carvao); font-weight: 500;">
+                            Preenchemos esse espaço com um sistema que <strong>automatiza o registro e o
+                                monitoramento</strong> da
+                            saúde emocional. Por meio de triagens periódicas e alertas automáticos, viabilizamos sessões
+                            de
+                            <strong>telemedicina e teleatendimento</strong> para intervenções urgentes, apoiando a
+                            escola como rede de
+                            cuidado efetiva.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section-head">
+                    <span class="eyebrow">Pilar Conceitual</span>
+                    <h3>Palavras-chave do Projeto</h3>
+                </div>
+                <div class="chips">
+                    <span class="chip">acolhimento</span>
+                    <span class="chip">segurança</span>
+                    <span class="chip">equilíbrio</span>
+                    <span class="chip">empatia</span>
+                    <span class="chip">confiança</span>
+                    <span class="chip">autonomia</span>
+                    <span class="chip">prevenção</span>
+                    <span class="chip">conexão</span>
+                </div>
+
+                <div class="section-head" style="margin-top: 80px;">
+                    <span class="eyebrow">Foco no Usuário</span>
+                    <h2>Persona do Projeto</h2>
+                </div>
+                <div class="grid grid-2">
+                    <div class="card">
+                        <div class="icon ic-verde">👤</div>
+                        <h4>Perfil</h4>
+                        <p><strong>Papel:</strong> Professora de Ensino Médio em escola pública.</p>
+                        <p style="margin-top: 8px;"><strong>Contexto:</strong> Leciona para turmas onde cerca de 28,9%
+                            dos alunos
+                            sentem-se tristes com frequência, índice que chega a 41% entre as estudantes.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-azul">🧠</div>
+                        <h4>Comportamento</h4>
+                        <ul class="styled-list" style="margin-top: 0;">
+                            <li style="margin-bottom: 8px; font-size: 0.95rem;">Lida diariamente com a fragilidade
+                                emocional dos
+                                estudantes sem possuir ferramentas ou protocolos formais.</li>
+                            <li style="margin-bottom: 8px; font-size: 0.95rem;">Assume o papel de rede de cuidado
+                                clínico por falta de
+                                profissionais especializados (psicólogos e psiquiatras) no ambiente escolar.</li>
+                            <li style="font-size: 0.95rem;">Acredita que a escuta ativa é eficaz, mas sente-se impotente
+                                diante da
+                                gravidade de alguns casos.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-lilas">😫</div>
+                        <h4>Dores</h4>
+                        <ul class="styled-list" style="margin-top: 0;">
+                            <li style="margin-bottom: 8px; font-size: 0.95rem;"><strong>Sobrecarga Crítica:</strong>
+                                Padece com a
+                                responsabilidade de lidar com ocorrências graves (automutilação ou risco de suicídio)
+                                sem preparo
+                                técnico.</li>
+                            <li style="margin-bottom: 8px; font-size: 0.95rem;"><strong>Inexistência de
+                                    Protocolos:</strong> Sente-se
+                                perdida em momentos de crise por não haver um fluxo formal de intervenção.</li>
+                            <li style="font-size: 0.95rem;"><strong>Monitoramento Manual Ineficaz:</strong> A ausência
+                                de um histórico
+                                organizado impede a identificação precoce do sofrimento.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-areia">🎯</div>
+                        <h4>Objetivos</h4>
+                        <ul class="styled-list" style="margin-top: 0;">
+                            <li style="margin-bottom: 8px; font-size: 0.95rem;"><strong>Redução da Carga
+                                    Clínica:</strong> Quer que o
+                                sistema direcione casos urgentes para teleatendimento e telemedicina.</li>
+                            <li style="margin-bottom: 8px; font-size: 0.95rem;"><strong>Inteligência de Dados:</strong>
+                                Necessita de
+                                alertas automáticos baseados em triagens periódicas para atenção imediata.</li>
+                            <li style="margin-bottom: 8px; font-size: 0.95rem;"><strong>Suporte no "Aqui e
+                                    Agora":</strong> Busca
+                                instruções claras sobre "o que fazer" durante uma crise aguda.</li>
+                            <li style="font-size: 0.95rem;"><strong>Integração:</strong> Deseja que a escola, família e
+                                rede de saúde
+                                (SUS/CAPS) estejam conectadas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section-head" style="margin-top: 80px;">
+                    <span class="eyebrow">Mercado & Ciência</span>
+                    <h2>Análise de Soluções Existentes</h2>
+                    <p>Identificamos lacunas e oportunidades de inovação aplicadas ao contexto educacional frente às
+                        ferramentas
+                        atuais.</p>
+                </div>
+                <div class="grid grid-2" style="max-width: 900px; margin: 0 auto;">
+                    <div class="card solution-card" data-solution="speck" role="button" tabindex="0">
+                        <h4>SPECK</h4>
+                        <span class="more-info-badge">Ver mais →</span>
+                    </div>
+                    <div class="card solution-card" data-solution="amesuamente" role="button" tabindex="0">
+                        <h4>AME SUA MENTE</h4>
+                        <span class="more-info-badge">Ver mais →</span>
+                    </div>
+                    <div class="card solution-card" data-solution="sagapro" role="button" tabindex="0">
+                        <h4>SAGAPRO</h4>
+                        <span class="more-info-badge">Ver mais →</span>
+                    </div>
+                    <div class="card solution-card" data-solution="emoplay" role="button" tabindex="0">
+                        <h4>EMOPLAY</h4>
+                        <span class="more-info-badge">Ver mais →</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IDEAÇÃO -->
+            <section class="page" id="ideacao">
+                <div class="section-head">
+                    <span class="eyebrow">Sobre · Ideação</span>
+                    <h2>Ideação do Projeto</h2>
+                    <p>Confira o documento de ideação contendo o mapeamento conceitual, brainstorming e refinamento da proposta de valor do A.M.P.A.R.A.</p>
+                </div>
+
+                <div class="sheet-container">
+                    <div class="sheet-header">
+                        <div class="sheet-title-area">
+                            <div class="sheet-info">
+                                <span class="sheet-badge" style="background: var(--azul-calmo); color: var(--azul-profundo);">Google Docs</span>
+                                <span>Documento de Ideação</span>
+                            </div>
+                        </div>
+                        <div class="sheet-actions">
+                            <a class="btn-sheet-action primary-action"
+                                href="https://docs.google.com/document/d/e/2PACX-1vSsyXyu3jQ4rCejb5baEpCfMW69Jxg0kWrK-gmqzfWg2SbgMvU4W4c_-yEsalm_T-UNZu53CrQjwjs6/pub"
+                                target="_blank" rel="noopener">
+                                <span>↗</span> Abrir Documento
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sheet-iframe-wrapper" style="height: 800px;">
+                        <iframe
+                            src="https://docs.google.com/document/d/e/2PACX-1vSsyXyu3jQ4rCejb5baEpCfMW69Jxg0kWrK-gmqzfWg2SbgMvU4W4c_-yEsalm_T-UNZu53CrQjwjs6/pub?embedded=true"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CICLO DE VIDA -->
+            <section class="page" id="ciclo">
+                <div class="section-head">
+                    <span class="eyebrow">Processos · Ciclo de Vida</span>
+                    <h2>Como o software é desenvolvido</h2>
+                    <p>O ciclo de vida do projeto segue uma abordagem ágil orientada por descoberta contínua, com
+                        entregas
+                        incrementais validadas com usuários reais.</p>
+                </div>
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="icon ic-verde">01</div>
+                        <h3>Descoberta</h3>
+                        <p>Definição do problema, pesquisa com usuários, análise de soluções existentes e elaboração da
+                            matriz CSD.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-azul">02</div>
+                        <h3>Ideação</h3>
+                        <p>Workshop de ideação, priorização estratégica de funcionalidades e definição da solução mínima
+                            viável
+                            (MVP).</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-lilas">03</div>
+                        <h3>Prototipação</h3>
+                        <p>Criação de wireframes, protótipo navegável e validação técnica com docentes do ensino médio
+                            público.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-areia">04</div>
+                        <h3>Desenvolvimento</h3>
+                        <p>Implementação incremental com revisões quinzenais e testes de usabilidade contínuos em
+                            ambiente
+                            controlado.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon ic-verde">05</div>
+                        <h3>Validação</h3>
+                        <p>Apresentação do protótipo funcional acompanhado de evidências de validação e métricas de
+                            impacto real.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LINHA DO TEMPO (ANTIGO CRONOGRAMA) -->
+            <section class="page" id="cronograma">
+                <div class="section-head">
+                    <span class="eyebrow">Processos · Linha do Tempo</span>
+                    <h2>Marcos do Projeto 2026/2027</h2>
+                    <p>Ciclos quinzenais com três marcos de avaliação (Status Reports) ao longo do desenvolvimento.</p>
+                </div>
+                <div class="timeline">
+                    <!-- MAIO -->
+                    <div class="tl-item done">
+                        <span class="status-badge status-concluido">Concluído</span>
+                        <div class="tl-date">13 de Maio</div>
+                        <h4>Apresentação Geral</h4>
+                        <p>Introdução à disciplina e alinhamento de expectativas.</p>
+                    </div>
+                    <div class="tl-item done">
+                        <span class="status-badge status-concluido">Concluído</span>
+                        <div class="tl-date">20 de Maio</div>
+                        <h4>Estrutura Inicial</h4>
+                        <p>Lançamento do site da equipe (Google Sites) e estruturação do Repositórios no Drive.</p>
+                    </div>
+
+                    <!-- JUNHO -->
+                    <div class="tl-item done">
+                        <span class="status-badge status-concluido">Concluído</span>
+                        <div class="tl-date">10 de Junho</div>
+                        <h4>Definição e Planejamento</h4>
+                        <p>Formalização do problema, análise de soluções, definição do ciclo de vida e cronograma
+                            detalhado.</p>
+                    </div>
+
+                    <!-- JULHO -->
+                    <div class="tl-item done">
+                        <span class="status-badge status-concluido">Concluído</span>
+                        <div class="tl-date">08 de Julho</div>
+                        <h4>Ideação</h4>
+                        <p>Workshop para concepção de funcionalidades e proposta de valor.</p>
+                    </div>
+                    <div class="tl-item done">
+                        <span class="status-badge status-concluido">Concluído</span>
+                        <div class="tl-date">22 de Julho</div>
+                        <h4>Acompanhamento pré-SR1</h4>
+                        <p>Revisão interna para o primeiro Status Report.</p>
+                    </div>
+
+                    <!-- AGOSTO -->
+                    <div class="tl-item current">
+                        <span class="status-badge status-andamento">Próximo Marco</span>
+                        <div class="tl-date">26 de Agosto · 19:00</div>
+                        <h4>SR 1 · Status Report 1</h4>
+                        <p>Primeira apresentação oficial de progresso para banca/orientadores.</p>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-date">02 de Setembro</div>
+                        <h4>Evoluções do Projeto</h4>
+                        <p>Ciclo incremental de melhorias pós-avaliação.</p>
+                    </div>
+
+                    <!-- SETEMBRO -->
+                    <div class="tl-item">
+                        <div class="tl-date">09 de Setembro</div>
+                        <h4>Prototipação</h4>
+                        <p>Refinamento de interfaces e fluxos de navegação.</p>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-date">29 de Setembro</div>
+                        <h4>Evoluções do Projeto</h4>
+                        <p>Iteração de desenvolvimento e refinamento técnico.</p>
+                    </div>
+
+                    <!-- OUTUBRO -->
+                    <div class="tl-item">
+                        <div class="tl-date">14 de Outubro</div>
+                        <h4>Solução</h4>
+                        <p>Consolidação das funcionalidades principais do sistema.</p>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-date">28 de Outubro</div>
+                        <h4>Validação</h4>
+                        <p>Início dos testes de usabilidade e coleta de métricas.</p>
+                    </div>
+
+                    <!-- NOVEMBRO -->
+                    <div class="tl-item">
+                        <span class="status-badge status-iniciar">Avaliação</span>
+                        <div class="tl-date">11 de Novembro · 19:00</div>
+                        <h4>SR 2 · Status Report 2</h4>
+                        <p>Segunda avaliação de progresso e validação de entregas.</p>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-date">25 de Novembro</div>
+                        <h4>Evoluções do Projeto</h4>
+                        <p>Ajustes finais baseados no feedback do SR2.</p>
+                    </div>
+
+                    <!-- DEZEMBRO -->
+                    <div class="tl-item">
+                        <div class="tl-date">16 de Dezembro</div>
+                        <h4>Evoluções do Projeto</h4>
+                        <p>Ciclo final de polimento e documentação.</p>
+                    </div>
+
+                    <!-- JANEIRO/27 -->
+                    <div class="tl-item">
+                        <span class="status-badge status-andamento"
+                            style="background:var(--azul-profundo);color:#fff">Final</span>
+                        <div class="tl-date">23 de Janeiro / 2027 · 16:00</div>
+                        <h4>SR 3 · Apresentação Final</h4>
+                        <p>Entrega final do protótipo funcional e defesa dos resultados alcançados.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CRONOGRAMA INTEGRADO (PLANILHA) -->
+            <section class="page" id="planilha-cronograma">
+                <div class="section-head">
+                    <span class="eyebrow">Processos · Planilha</span>
+                    <h2>Cronograma de Atividades</h2>
+                    <p>Acompanhe em tempo real o andamento detalhado do projeto, divisão de tarefas, status e prazos por
+                        meio da
+                        planilha integrada.</p>
+                </div>
+
+                <!-- SPREADSHEET VIEWER VIEW -->
+                <div class="sheet-container">
+                    <div class="sheet-header">
+                        <div class="sheet-title-area">
+                            <div class="sheet-info">
+                                <span class="sheet-badge">Google Sheets</span>
+                                <span>Cronograma de Trabalho</span>
+                            </div>
+                        </div>
+                        <div class="sheet-actions">
+                            <!-- URL DE VISUALIZAÇÃO EXTERNA DA PLANILHA -->
+                            <a class="btn-sheet-action primary-action"
+                                href="https://docs.google.com/spreadsheets/d/1rHmNmUgx2Y2tlz7YqqhFJjszHQ_xM7ujnoOUP5dzYLI/edit?gid=1709744959#gid=1709744959"
+                                target="_blank" rel="noopener">
+                                <span>↗</span> Abrir Planilha
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sheet-iframe-wrapper">
+                        <!-- URL DE INCORPORAÇÃO (PUBHTML) DA PLANILHA PUBLICADA DA EQUIPE -->
+                        <iframe
+                            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRPBA0zGUwdh9uGG1leDzAsQGJ7FEt1SJXUYW7BO7tt7frSyc-2NHo5ca5itwPiU7y-q1n24vIFFBU-/pubhtml?gid=1709744959&single=true"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EQUIPE -->
+            <section class="page" id="equipe">
+                <div class="section-head">
+                    <span class="eyebrow">Equipe</span>
+                    <h2>Quem está por trás</h2>
+                    <p>Mestrandos responsáveis pela pesquisa, concepção e desenvolvimento da aplicação
+                        técnica-tecnológica.</p>
+                </div>
+
+                <div class="team-group">
+                    <div class="team-group-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/rbvrr/amparo/refs/heads/main/equipe_mpes.jpeg"
+                            alt="Foto da Equipe Reunida" class="team-group-img">
+                    </div>
+                </div>
+
+                <div class="team">
+                    <div class="member">
+                        <img src="https://raw.githubusercontent.com/rbvrr/amparo/refs/heads/main/Captura%20de%20tela%20de%202026-05-29%2012-11-51.png"
+                            alt="Diego" class="member-photo">
+                        <h4>Diego de Souza Pinto</h4>
+                        <div class="role">Analista de Negócio</div>
+                        <div class="contact-info"><span>📞</span> (82) 99648-4610</div>
+                        <div class="contact-info"><span>📧</span> dsp@cesar.school</div>
+                    </div>
+                    <div class="member">
+                        <img src="https://raw.githubusercontent.com/rbvrr/amparo/refs/heads/main/Eudes.jpg" alt="Eudes"
+                            class="member-photo">
+                        <h4>Eudes Rego Sousa Silva</h4>
+                        <div class="role">Gerente de Projeto</div>
+                        <div class="contact-info"><span>📞</span> (81) 99648-6260</div>
+                        <div class="contact-info"><span>📧</span> erss2@cesar.school</div>
+                    </div>
+                    <div class="member">
+                        <img src="https://raw.githubusercontent.com/rbvrr/amparo/refs/heads/main/Evelyn.jpeg" alt="Evelyn"
+                            class="member-photo">
+                        <h4>Evelyn Karinne Macedo Mota Silva</h4>
+                        <div class="role">Desenvolvedora de Software</div>
+                        <div class="contact-info"><span>📞</span> (86) 98801-6163</div>
+                        <div class="contact-info"><span>📧</span> ekmms@cesar.school</div>
+                    </div>
+                    <div class="member">
+                        <img src="https://raw.githubusercontent.com/rbvrr/amparo/refs/heads/main/Jorge.jpg" alt="Jorge"
+                            class="member-photo">
+                        <h4>Jorge Alexandre de Araújo</h4>
+                        <div class="role">Desenvolvedor de Software</div>
+                        <div class="contact-info"><span>📞</span> (81) 99990-1981</div>
+                        <div class="contact-info"><span>📧</span> jaa@cesar.school</div>
+                    </div>
+                    <div class="member">
+                        <img src="https://raw.githubusercontent.com/rbvrr/amparo/refs/heads/main/Paulo.jpeg" alt="Paulo"
+                            class="member-photo">
+                        <h4>Paulo Henrique Bezerra da Silva</h4>
+                        <div class="role">QA</div>
+                        <div class="contact-info"><span>📞</span> (81) 98112-0162</div>
+                        <div class="contact-info"><span>📧</span> phbs@cesar.school</div>
+                    </div>
+                    <div class="member">
+                        <img src="https://raw.githubusercontent.com/rbvrr/amparo/refs/heads/main/Rebeca.png" alt="Rebeca"
+                            class="member-photo">
+                        <h4>Rebeca Andrade Bivar</h4>
+                        <div class="role">UX/UI e Designer</div>
+                        <div class="contact-info"><span>📞</span> (81) 99525-1996</div>
+                        <div class="contact-info"><span>📧</span> rab3@cesar.school</div>
+                    </div>
+                </div>
+                <p style="text-align:center;margin-top:60px;color:var(--muted);font-size:.9rem">
+                    Programa de Mestrado Profissional · MPES 2026.1
+                </p>
+            </section>
+
+            <!-- Repositórios -->
+            <section class="page" id="repositorio">
+                <div class="section-head">
+                    <span class="eyebrow">Repositórios</span>
+                    <h2>Artefatos e documentação</h2>
+                    <p>Acesse os documentos técnicos e materiais abertos do projeto.</p>
+                </div>
+                <div class="repo-grid">
+                    <a class="repo-card"
+                        href="https://github.com/CESAR-AMPARA/app-ampara"
+                        target="_blank" rel="noopener">
+                        <div class="repo-icon">💻</div>
+                        <div>
+                            <h4>Repositório do Projeto (GitHub)</h4>
+                            <p>Código-fonte da aplicação, arquitetura do sistema e instruções de desenvolvimento.</p>
+                            <span class="repo-link">Acessar GitHub →</span>
+                        </div>
+                    </a>
+                    <a class="repo-card"
+                        href="https://www.figma.com/board/ALe3nzQ7DwsRV9jOXgSUTD/MOODBOARD---APP---SAUDE-EMOCIONAL?node-id=0-1&p=f&t=MvRHQeqdKVuJ1Kxo-0"
+                        target="_blank" rel="noopener">
+                        <div class="repo-icon">🎨</div>
+                        <div>
+                            <h4>Protótipos e Moodboard (Figma)</h4>
+                            <p>Wireframes, moodboard e protótipos de alta fidelidade navegáveis.</p><span
+                                class="repo-link">Abrir
+                                Figma →</span>
+                        </div>
+                    </a>
+                    <a class="repo-card" href="https://drive.google.com/drive/folders/0AKbX7l_shSBzUk9PVA"
+                        target="_blank" rel="noopener">
+                        <div class="repo-icon">📁</div>
+                        <div>
+                            <h4>Pasta do Projeto (Google Drive)</h4>
+                            <p>Documentação técnica, cronograma, relatórios e dissertação acadêmica.</p><span
+                                class="repo-link">Acessar Drive →</span>
+                        </div>
+                    </a>
+                    <a class="repo-card"
+                        href="https://app.plane.so/ampara/projects/54f9f0ec-003f-4ae0-bf5f-cd9820e09489/issues"
+                        target="_blank" rel="noopener">
+                        <div class="repo-icon">✈️</div>
+                        <div>
+                            <h4>Gestão do Projeto (Plane)</h4>
+                            <p>Quadro Kanban, backlog, ciclos de sprints e controle de issues da equipe.</p>
+                            <span class="repo-link">Acessar Plane →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <footer>
+                © 2026 A.M.P.A.R.A · Mestrado Profissional · CESAR School · Todos os direitos reservados.
+            </footer>
+        </main>
+    </div>
+
+    <!-- MODAL DE DETALHES DAS SOLUÇÕES -->
+    <div id="solutionModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-action="close-solution" aria-label="Fechar modal">&times;</button>
+            <div class="modal-body">
+                <span class="modal-tag">Análise de Solução</span>
+                <h3 id="modalTitle" class="modal-title">Nome da Solução</h3>
+                <p id="modalDescription" class="modal-description">Descrição...</p>
+                <div class="modal-action-wrapper">
+                    <a id="modalLink" href="#" target="_blank" rel="noopener" class="modal-action-btn">
+                        Acessar Solução ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE OKRS E INDICADORES -->
+    <div id="okrModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="okrModalTitle">
+        <div class="modal-content okr-modal-content">
+            <button class="modal-close-btn" data-action="close-okr" aria-label="Fechar OKRs e indicadores">&times;</button>
+            <span class="modal-tag">Estratégia e acompanhamento</span>
+            <h3 id="okrModalTitle" class="modal-title">OKRs da AMPARA</h3>
+            <p class="modal-description">Objetivos, resultados-chave e indicadores para orientar a validação do MVP.</p>
+
+            <div class="okr-objectives">
+                <article class="okr-objective">
+                    <h4>🎯 Objetivo 1 — Identificação precoce</h4>
+                    <p>Identificar precocemente sinais de sofrimento emocional em estudantes por meio do registro e acompanhamento de observações comportamentais no ambiente escolar.</p>
+                    <ul><li><strong>KR1.1:</strong> 100% dos professores cadastrados com acesso ao registro de observações.</li><li><strong>KR1.2:</strong> registro de uma observação em até 2 minutos.</li><li><strong>KR1.3:</strong> 100% dos registros associados ao histórico do estudante.</li></ul>
+                </article>
+                <article class="okr-objective">
+                    <h4>🤝 Objetivo 2 — Apoio à intervenção</h4>
+                    <p>Orientar professores e equipes pedagógicas na abordagem inicial de situações de fragilidade emocional, disponibilizando protocolos, guias e materiais de apoio.</p>
+                    <ul><li><strong>KR2.1:</strong> biblioteca de guias e protocolos para os principais cenários de crise.</li><li><strong>KR2.2:</strong> localizar um material de orientação em até 1 minuto.</li><li><strong>KR2.3:</strong> 80% de utilização dos materiais pelos professores no período de validação do MVP.</li></ul>
+                </article>
+                <article class="okr-objective">
+                    <h4>📊 Objetivo 3 — Acompanhamento contínuo</h4>
+                    <p>Promover o acompanhamento contínuo dos estudantes por meio da centralização e visualização do histórico de observações na plataforma.</p>
+                    <ul><li><strong>KR3.1:</strong> histórico unificado de 100% das observações para usuários autorizados.</li><li><strong>KR3.2:</strong> consulta com filtros por período.</li><li><strong>KR3.3:</strong> consulta do histórico de um estudante em até 1 minuto.</li></ul>
+                </article>
+                <article class="okr-objective">
+                    <h4>🧠 Objetivo 4 — Encaminhamento e integração</h4>
+                    <p>Facilitar o encaminhamento de situações que necessitem de suporte especializado, fortalecendo a comunicação entre professores, coordenação e equipe multidisciplinar.</p>
+                    <ul><li><strong>KR4.1:</strong> 100% das situações de acompanhamento podem ser encaminhadas.</li><li><strong>KR4.2:</strong> 100% dos encaminhamentos com registro de status.</li><li><strong>KR4.3:</strong> identificar e escalar uma situação em, no máximo, 3 observações comportamentais.</li></ul>
+                </article>
+            </div>
+
+            <h4 style="color: var(--azul-profundo); margin-bottom: 14px;">Conjunto de indicadores selecionado</h4>
+            <div class="okr-table-wrap">
+                <table class="okr-table">
+                    <thead><tr><th>Indicador</th><th>Categoria</th><th>Fórmula / Forma de medição</th><th>Meta</th><th>Periodicidade</th></tr></thead>
+                    <tbody>
+                        <tr><td>Taxa de Conclusão do Escopo do MVP</td><td>Cronograma e Escopo</td><td>% de funcionalidades essenciais entregues e prontas para uso</td><td>100% do escopo crítico até a data de testes</td><td>Mensal (até o teste piloto)</td></tr>
+                        <tr><td>Tempo Médio de Registro (TMR)</td><td>Eficiência/Usabilidade</td><td>Cronometragem do tempo de registro de uma observação</td><td>≤ 120s</td><td>Mensal</td></tr>
+                        <tr><td>Tempo Médio de Localização de Protocolos (TML)</td><td>Eficiência/Usabilidade</td><td>Tempo para encontrar um guia/protocolo de crise</td><td>≤ 60s</td><td>Mensal</td></tr>
+                        <tr><td>Taxa de Falha de Carregamento/Conexão</td><td>Confiabilidade Técnica</td><td>% de tentativas de acesso/registro com erro</td><td>&lt; 2%</td><td>Mensal</td></tr>
+                        <tr><td>Taxa de Ativação dos Usuários (TAU)</td><td>Adoção</td><td>% de professores cadastrados com ≥ 1 registro/consulta em 30 dias</td><td>≥ 80%</td><td>Semanal (nos 30 dias) / consolidado mensal</td></tr>
+                        <tr><td>Usuários Ativos Semanalmente (WAU)</td><td>Adoção/Retenção</td><td>% de docentes/coordenadores cadastrados que acessam a ferramenta na semana</td><td>≥ 70%</td><td>Semanal</td></tr>
+                        <tr><td>Precisão da Triagem</td><td>Confiabilidade do Conteúdo</td><td>Precisão = % de registros confirmados como pertinentes pelo especialista. Fluxo: professor registra comportamentos; especialista valida os registros por amostragem.</td><td>≥ 75%</td><td>Mensal</td></tr>
+                        <tr><td>Taxa de Alertas Críticos</td><td>Risco</td><td>Nº de alertas críticos no período / nº de professores ativos no período</td><td>Redução ≥ 25% em 6 meses</td><td>Quinzenal</td></tr>
+                        <tr><td>Encaminhamentos Formalizados</td><td>Processo</td><td>% de casos críticos com encaminhamento formal registrado</td><td>100% dos casos críticos</td><td>Mensal</td></tr>
+                        <tr><td>Tempo de Resposta Multidisciplinar/Suporte</td><td>Qualidade de Suporte</td><td>Tempo entre reporte de dúvida/bug/caso e resposta da equipe</td><td>&lt; 24h (bugs) / ≤ 48h (casos multidisciplinares)</td><td>Contínuo, revisão mensal</td></tr>
+                        <tr><td>NPS do Professor / Equipe Multidisciplinar</td><td>Satisfação</td><td>Pesquisa NPS pós-uso</td><td>≥ 70 (Zona de Excelência)<br><br><em>*com % de respondentes estatisticamente representativo do total de usuários</em></td><td>Trimestral</td></tr>
+                        <tr><td>Uso de Relatórios pela Gestão</td><td>Impacto</td><td>% de coordenadores/gestores que acessam relatórios gerados</td><td>≥ 85%</td><td>Mensal</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // SISTEMA DE NAVEGAÇÃO COMPATÍVEL COM GOOGLE SITES E IFRAMES
+        // ============================================================
+
+        function goTo(e, id) {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault();
+            }
+            goToPage(id);
+            return false;
+        }
+
+        function goToPage(id) {
+            if (!id) return;
+            const target = document.getElementById(id);
+            if (!target) return;
+
+            // Ativar seção correspondente
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            target.classList.add('active');
+
+            // Atualizar links/botões da navbar e dropdowns
+            document.querySelectorAll('[data-page]').forEach(el => {
+                const page = el.getAttribute('data-page');
+                el.classList.toggle('active', page === id);
+            });
+
+            // Destacar o botão do dropdown pai se um link filho estiver ativo
+            document.querySelectorAll('.has-drop').forEach(li => {
+                const hasActiveChild = li.querySelector('.drop-menu [data-page].active') !== null;
+                const btn = li.querySelector('button');
+                if (btn) {
+                    btn.classList.toggle('active', hasActiveChild);
+                }
+            });
+
+            // Fechar menus mobile e dropdowns
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks) navLinks.classList.remove('show');
+            document.querySelectorAll('.drop-menu').forEach(menu => {
+                menu.classList.remove('open');
+            });
+
+            // Rolagem segura (evita exceções em iframes restritos do Google Sites)
+            try {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (err) {
+                try { window.scrollTo(0, 0); } catch (e) {}
+            }
+        }
+
+        function toggleDrop(e, id) {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault();
+            }
+            if (e && typeof e.stopPropagation === 'function') {
+                e.stopPropagation();
+            }
+            const targetId = id || 'dropProc';
+            const menu = document.getElementById(targetId);
+            if (!menu) return false;
+
+            const wasOpen = menu.classList.contains('open');
+
+            // Fechar outros dropdowns abertos
+            document.querySelectorAll('.drop-menu').forEach(m => {
+                if (m.id !== targetId) {
+                    m.classList.remove('open');
+                }
+            });
+
+            menu.classList.toggle('open', !wasOpen);
+            return false;
+        }
+
+        // Dados das soluções existentes para exibição nos popups
+        const solutionsData = {
+            speck: {
+                title: "Speck",
+                description: "Usa psicolinguística e IA para diagnosticar aspectos emocionais e potenciais dificuldades individuais, ajudando escolas a criarem estratégias personalizadas.",
+                link: "https://www.speck.live/home/"
+            },
+            amesuamente: {
+                title: "Ame Sua Mente",
+                description: "Explora as possibilidades de promoção da saúde mental a partir do ambiente escolar e, ao mesmo tempo, contribui com conhecimento científico e técnico para educar e conscientizar a sociedade brasileira sobre o tema.",
+                link: "https://www.amesuamente.org.br/ame-sua-mente-na-escola/"
+            },
+            sagapro: {
+                title: "SagaPro",
+                description: "A SagaPro surge como uma solução aos problemas relacionados ao bem-estar no ambiente escolar, realizando o acompanhamento do clima emocional dos estudantes ao longo do período letivo e oferecendo um ambiente de interação digital gamificado.",
+                link: "https://sagapro.com.br/sagapro-social/"
+            },
+            emoplay: {
+                title: "EmoPLAY",
+                description: "EmoPLAY é uma solução tecnológica para o treinamento de habilidades sociais destinada a crianças e adolescentes com Transtorno do Espectro Autista (TEA).",
+                link: "https://play.google.com/store/apps/details?id=com.orange.emoplay&hl=en&pli=1"
+            }
+        };
+
+        function openSolutionModal(key) {
+            const data = solutionsData[key];
+            if (!data) return;
+
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalDescription').textContent = data.description;
+            document.getElementById('modalLink').href = data.link;
+
+            const modal = document.getElementById('solutionModal');
+            if (modal) modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSolutionModal() {
+            const modal = document.getElementById('solutionModal');
+            if (modal) modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOutside(e) {
+            if (e && e.target === document.getElementById('solutionModal')) {
+                closeSolutionModal();
+            }
+        }
+
+        function openOkrModal() {
+            const modal = document.getElementById('okrModal');
+            if (modal) modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeOkrModal() {
+            const modal = document.getElementById('okrModal');
+            if (modal) modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeOkrModalOutside(e) {
+            if (e && e.target === document.getElementById('okrModal')) {
+                closeOkrModal();
+            }
+        }
+
+        // ============================================================
+        // EVENT DELEGATION GLOBAL: Garante funcionamento no Google Sites
+        // Funciona mesmo se atributos inline (onclick) forem desabilitados por CSP
+        // ============================================================
+        document.addEventListener('click', function (e) {
+            // 1. Menu Hambúrguer (Mobile)
+            const burger = e.target.closest('.burger, #burgerBtn');
+            if (burger) {
+                e.preventDefault();
+                const navLinks = document.getElementById('navLinks');
+                if (navLinks) navLinks.classList.toggle('show');
+                return;
+            }
+
+            // 2. Navegação de Abas / Páginas (data-page)
+            const pageEl = e.target.closest('[data-page]');
+            if (pageEl) {
+                e.preventDefault();
+                const pageId = pageEl.getAttribute('data-page');
+                goToPage(pageId);
+                return;
+            }
+
+            // 3. Dropdowns (Sobre e Processos)
+            const dropBtn = e.target.closest('[data-drop], [data-drop-target]');
+            if (dropBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const dropId = dropBtn.getAttribute('data-drop-target') || dropBtn.getAttribute('data-drop');
+                toggleDrop(e, dropId);
+                return;
+            }
+
+            // 4. Modal de Soluções
+            const solCard = e.target.closest('[data-solution]');
+            if (solCard) {
+                e.preventDefault();
+                const key = solCard.getAttribute('data-solution');
+                openSolutionModal(key);
+                return;
+            }
+
+            // 5. Botões de fechar modais
+            if (e.target.closest('[data-action="close-solution"]')) {
+                e.preventDefault();
+                closeSolutionModal();
+                return;
+            }
+            if (e.target.closest('[data-action="close-okr"]')) {
+                e.preventDefault();
+                closeOkrModal();
+                return;
+            }
+
+            // 6. Botão de abrir modal OKR
+            if (e.target.closest('[data-action="open-okr"]')) {
+                e.preventDefault();
+                openOkrModal();
+                return;
+            }
+
+            // 7. Fechar modal ao clicar fora (no overlay)
+            if (e.target.classList && e.target.classList.contains('modal-overlay')) {
+                if (e.target.id === 'solutionModal') closeSolutionModal();
+                if (e.target.id === 'okrModal') closeOkrModal();
+                return;
+            }
+
+            // 8. Clique fora fecha dropdowns abertos
+            if (!e.target.closest('.has-drop')) {
+                document.querySelectorAll('.drop-menu').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+            }
+        });
+
+        // Fechar ao pressionar a tecla Esc
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeSolutionModal();
+                closeOkrModal();
+                document.querySelectorAll('.drop-menu').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+                const navLinks = document.getElementById('navLinks');
+                if (navLinks) navLinks.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>
